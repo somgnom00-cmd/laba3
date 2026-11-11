@@ -25,11 +25,11 @@ if args.language == "cpp":
             name = Path("cpp") / name
         counts[name.as_posix()] = [row["line_covered"], row["line_total"]]
 else:
-    # container.go only declares interfaces and has no executable statements.
+    # These files contain only type declarations, with no executable statements.
     expected = {
         f.relative_to(root).as_posix()
         for f in (root / "go").rglob("*.go")
-        if not f.name.endswith("_test.go") and f.name != "container.go"
+        if not f.name.endswith("_test.go") and f.name not in {"container.go", "single_node.go"}
     }
     for row in args.report.read_text().splitlines()[1:]:
         where, size, hits = row.split()

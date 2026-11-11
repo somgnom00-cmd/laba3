@@ -1,6 +1,8 @@
 #include <gtest/gtest.h>
 
-#include "structures.h"
+#include "stack.h"
+#include "queue.h"
+#include "complete_binary_tree.h"
 #include <stdexcept>
 
 TEST(Stack, PopsInReverseOrderAndRejectsEmpty) {

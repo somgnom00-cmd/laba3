@@ -1,5 +1,6 @@
 #include "hash_table.h"
-#include "structures.h"
+#include "array.h"
+#include "singly_list.h"
 
 #include <chrono>
 #include <cstddef>

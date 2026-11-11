@@ -1,42 +1,105 @@
 @startuml
-skinparam classAttributeIconSize 0
 skinparam monochrome true
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam defaultFontName DejaVu Sans
+skinparam defaultFontSize 16
+skinparam nodesep 30
+skinparam ranksep 35
+hide circle
+hide empty members
 
-interface Container {
-  +type(): string
-  +size(): size_t
-  +values(): vector<string>
-  +clear(): void
-  +saveText(file): void
-  +loadText(file): void
-  +saveBinary(file): void
-  +loadBinary(file): void
+abstract class Container {
+  +type() : std::string
+  +size() : std::size_t
+  +values() : std::vector<std::string>
+  +clear() : void
+  +saveText(file : path) : void
+  +loadText(file : path) : void
+  +saveBinary(file : path) : void
+  +loadBinary(file : path) : void
 }
-
-class Array
-class SinglyList
-class DoublyList
-class Stack
-class Queue
-class CompleteBinaryTree
+class Database {
+  -items_ : map<string, unique_ptr<Container>>
+  +create(name : string, type : string) : Container&
+  +get(name : string) : Container&
+  +erase(name : string) : bool
+}
+class Array {
+  -data_ : std::string*
+  -size_ : std::size_t
+  -capacity_ : std::size_t
+  +pushBack(value : string) : void
+  +insert(index : size_t, value : string) : void
+  +erase(index : size_t) : void
+}
+class SinglyList {
+  -head_ : Node*
+  -tail_ : Node*
+  -size_ : std::size_t
+  +pushFront(value : string) : void
+  +pushBack(value : string) : void
+  +erase(index : size_t) : void
+}
+class DoublyList {
+  -head_ : Node*
+  -tail_ : Node*
+  -size_ : std::size_t
+  +pushBack(value : string) : void
+  +erase(index : size_t) : void
+  +reverseValues() : vector<string>
+}
+class Stack {
+  -top_ : Node*
+  -size_ : std::size_t
+  +push(value : string) : void
+  +pop() : std::string
+  +top() : const std::string&
+}
+class Queue {
+  -head_ : Node*
+  -tail_ : Node*
+  -size_ : std::size_t
+  +push(value : string) : void
+  +pop() : std::string
+  +front() : const std::string&
+}
+class CompleteBinaryTree {
+  -root_ : Node*
+  -size_ : std::size_t
+  +insert(value : string) : void
+  +contains(value : string) : bool
+  +isComplete() : bool
+}
 abstract class OpenAddressHashTable {
-  +set(key, value): void
-  +get(key, value): bool
-  +erase(key): bool
-  #probeStep(key): size_t
+  -cells_ : std::vector<Cell>
+  -size_ : std::size_t
+  -deleted_ : std::size_t
+  +set(key : int, value : int) : void
+  +get(key : int, value : int&) : bool
+  +erase(key : int) : bool
+  {abstract} #probeStep(key : int) : std::size_t
 }
-class LinearHashTable
-class DoubleHashTable
-class Database
+class LinearHashTable {
+  #probeStep(key : int) : std::size_t
+}
+class DoubleHashTable {
+  #probeStep(key : int) : std::size_t
+}
 
-Container <|.. Array
-Container <|.. SinglyList
-Container <|.. DoublyList
-Container <|.. Stack
-Container <|.. Queue
-Container <|.. CompleteBinaryTree
-Container <|.. OpenAddressHashTable
+Database "0..1" *--down-- "0..*" Container
+Container <|-- Array
+Container <|-- SinglyList
+Container <|-- DoublyList
+Container <|-- Stack
+Container <|-- Queue
+Container <|-- CompleteBinaryTree
+Container <|-- OpenAddressHashTable
 OpenAddressHashTable <|-- LinearHashTable
 OpenAddressHashTable <|-- DoubleHashTable
-Database "1" o-- "0..*" Container
+
+Array -[hidden]down-> Stack
+SinglyList -[hidden]down-> Queue
+DoublyList -[hidden]down-> CompleteBinaryTree
+Stack -[hidden]down-> OpenAddressHashTable
 @enduml

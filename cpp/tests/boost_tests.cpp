@@ -1,7 +1,9 @@
 #define BOOST_TEST_MODULE Lab3ArrayAndLists
 #include <boost/test/included/unit_test.hpp>
 
-#include "structures.h"
+#include "array.h"
+#include "singly_list.h"
+#include "doubly_list.h"
 #include <stdexcept>
 
 BOOST_AUTO_TEST_CASE(array_growth_and_copy) {

@@ -10,7 +10,12 @@ option(LAB3_COVERAGE "Enable GCC/Clang coverage instrumentation" OFF)
 
 add_library(lab3_structures
     src/container.cpp
-    src/structures.cpp
+    src/array.cpp
+    src/singly_list.cpp
+    src/doubly_list.cpp
+    src/stack.cpp
+    src/queue.cpp
+    src/complete_binary_tree.cpp
     src/hash_table.cpp
     src/database.cpp
 )

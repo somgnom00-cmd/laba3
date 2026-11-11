@@ -1,7 +1,12 @@
 #include "database.h"
 
 #include "hash_table.h"
-#include "structures.h"
+#include "array.h"
+#include "singly_list.h"
+#include "doubly_list.h"
+#include "stack.h"
+#include "queue.h"
+#include "complete_binary_tree.h"
 
 #include <stdexcept>
 
